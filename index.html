@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T-Shirts planet</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #e6e3e3;
+      color: #111;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(242, 243, 243, 0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+    }
+
+
+    .logo-box {
+      width: 50px;
+      height: 50px;
+      background: black;
+      color: rgb(15, 15, 15);
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgb(19, 19, 19);
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #319eb1;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 0%;
+            height: 2px;
+            background: #487e88;
+            transition: 0.4s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+
+    .btn {
+      background: black;
+      color: white;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.35s;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 0.5fr 0.5fr;
+      gap: 60px;
+      padding: 100px 60px;
+      align-items: center;
+      min-height: 100vh;
+      margin-top: -75px;
+    }
+
+    .hero h1 {
+      font-size: 75px;
+      line-height: 1.1;
+      margin-bottom: 15px;
+    }
+
+    .hero h2 {
+      font-size: 38px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #2e2d2d;
+    }
+
+    .hero span {
+      color: gray;
+    }
+
+    .hero p {
+      color: #555;
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 650px;
+      object-fit: cover;
+      border-radius: 35px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .section {
+      padding: 100px 60px;
+    }
+
+    .section-title {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .section p {
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .banner {
+      margin-top: 50px;
+    }
+
+    .banner img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 30px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      transition: 0.4s;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.02);
+    }
+
+    .badge {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      background: rgb(212, 7, 7);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .card img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 24px;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .card-top h3 {
+      font-size: 20px;
+    }
+
+    .card-content p {
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .card-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .details-btn {
+      background: #f1f1f1;
+      color: black;
+    }
+
+    .details-btn:hover {
+      background: black;
+      color: white;
+    }
+
+    .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 70px;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: white;
+  color: black;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.35s;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-decoration: none;
+}
+
+.page-btn:hover {
+  background: black;
+  color: white;
+  transform: translateY(-6px) scale(1.08);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+}
+
+.page-btn.active {
+  background: #2e9fb4;
+  color: white;
+  transform: scale(1.08);
+  box-shadow: 0 12px 24px rgba(46, 159, 180, 0.35);
+}
+ 
+    footer {
+      border-top: 1px solid #ddd;
+      padding: 40px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: gray;
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: black;
+      transform: translateY(-2px);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(80px);
+      transition: 1s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1000px) {
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 60px;
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      header,
+      .section,
+      .hero,
+      footer {
+        padding: 25px;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 46px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <div class="logo-icon"><img src="logo2.png" alt="Boraldo" /></div>
+    </div>
+
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="about.html">About us</a>
+
+      <a href="#collection">Collection</a>
+      <a href="#shop">Shop</a>
+    </div>
+
+    <a href="#shop" class="btn">Shop Now</a>
+  </header>
+
+  <section class="hero reveal" id="home">
+
+    <div>
+      <h1>Wear <span>Minimal.</span></h1>
+
+      <p>
+        Premium oversized t-shirts designed with modern streetwear aesthetics.
+        Discover comfort, luxury cotton, and minimalist fashion for your lifestyle.
+      </p>
+      <h2>
+ Always stay forward. Never look back.
+      </h2>
+
+      <a href="#shop" class="btn">Explore Collection</a>
+    </div>
+
+    <div>
+      <img src="tee.jpg" alt="T-Shirt Fashion">
+    </div>
+
+  </section>
+
+  <section class="section reveal" id="collection">
+
+    <h2 class="section-title">Trending Collection</h2>
+
+    <p>
+      Explore our latest premium t-shirt collection inspired by Boraldo fashion,
+      luxury streetwear, and minimalist design culture.
+    </p>
+
+    <div class="banner">
+      <img src="ban.png"
+        alt="Fashion Banner">
+    </div>
+
+  </section>
+
+  <section class="section reveal" id="shop">
+
+    <h2 class="section-title">Featured Products</h2>
+
+    <p>
+      Best-selling premium oversized t-shirts with luxury comfort.
+    </p>
+
+    <div class="products" id="product-list"></div>
+
+    <div class="pagination">
+    
+      <a href="index.html" class="page-btn active">1</a>
+    
+      <a href="page2.html#shop" class="page-btn">2</a>
+    
+      <a href="page3.html" class="page-btn">3</a>
+    
+      <a href="page4.html" class="page-btn">4</a>
+    
+      <a href="page5.html" class="page-btn">5</a>
+    
+      </div>
+
+  </section>
+
+
+  <footer>
+
+    <div>
+      <h3>BOORALRO</h3>
+      <p>© 2026 All rights reserved.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="https://tiktok.com" target="_blank">TikTok</a>
+      <a href="https://youtube.com" target="_blank">YouTube</a>
+    </div>
+
+  </footer>
+
+  <script>
+
+    const products = [
+      {
+        name: 'Boraldo Tee Model-1',
+        price: '$299.99',
+        image: '1/t-shirt design1.jpg',
+        link: '1.html'
+      },
+      {
+        name: 'Boraldo Tee Model-2',
+        price: '$300',
+        image: '1/t-shirt design2.jpg',
+        link: '2.html'
+      },
+      {
+        name: 'Boraldo Tee Model-3',
+        price: '$304',
+        image: '1/t-shirt design3.jpg',
+        link: '3.html'
+      },
+      {
+        name: 'Boraldo Tee Model-4',
+        price: '$309',
+        image: '1/t-shirt design4.jpg',
+        link: '4.html'
+      },
+      {
+        name: 'Boraldo Tee Model-5',
+        price: '$300',
+        image: '1/t-shirt design5.jpg',
+        link: '5.html'
+      },
+      {
+        name: 'Boraldo Tee Model-6',
+        price: '$299.99',
+        image: '1/t-shirt design6.jpg',
+        link: '6.html'
+      },
+      {
+        name: 'Boraldo Tee Model-7',
+        price: '$289.99',
+        image: '1/t-shirt design7.jpg',
+        link: '7.html'
+      },
+      {
+        name: 'Boraldo Tee Model-8',
+        price: '$369.99',
+        image: '1/t-shirt design8.jpg',
+        link: '8.html'
+      },
+      {
+        name: 'Boraldo Tee Model-9',
+        price: '$279',
+        image: '1/t-shirt design9.jpg',
+        link: '9.html'
+      },
+      {
+        name: 'Boraldo Tee Model-10',
+        price: '$311',
+        image: '1/t-shirt design10.jpg',
+        link: '10.html'
+      },
+      {
+        name: 'Boraldo Tee Model-11',
+        price: '$269.99',
+        image: '1/t-shirt design11.jpg',
+        link: '11.html'
+      },
+      {
+        name: 'Boraldo Tee Model-12',
+        price: '$279.99',
+        image: '1/t-shirt design12.jpg',
+        link: '12.html'
+      },
+    ];
+
+    function renderProducts() {
+
+      const productList = document.getElementById('product-list');
+
+      productList.innerHTML = '';
+
+      products.forEach((product) => {
+
+        productList.innerHTML += `
+
+          <div class="card reveal">
+
+            <div class="badge">Premium</div>
+
+            <img src="${product.image}" alt="${product.name}">
+
+            <div class="card-content">
+
+              <div class="card-top">
+                <h3>${product.name}</h3>
+                <strong>${product.price}</strong>
+              </div>
+
+              <p>
+                Premium oversized t-shirt designed for minimalist street-wear fashion.
+              </p>
+
+              <div class="card-buttons">
+
+                <button class="btn" style="flex:1;">
+                  Add To Cart
+                </button>
+
+                <a href="${product.link}" rel="_blank"
+                  class="btn details-btn">
+                  Details
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `;
+
+      });
+
+      revealElements();
+    }
+
+
+    function revealElements() {
+
+      const reveals = document.querySelectorAll('.reveal');
+
+      reveals.forEach((element) => {
+
+        const windowHeight = window.innerHeight;
+        const revealTop = element.getBoundingClientRect().top;
+        const revealPoint = 75;
+
+        if (revealTop < windowHeight - revealPoint) {
+          element.classList.add('active');
+        }
+
+      });
+
+    }
+
+    window.addEventListener('scroll', revealElements);
+
+    renderProducts();
+    revealElements();
+
+  </script>
+
+</body>
+
+</html>
