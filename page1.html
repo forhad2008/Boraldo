@@ -40,15 +40,18 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    /* HEADER FIX: এখানে position fixed করা হয়েছে এবং z-index বাড়ানো হয়েছে */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 20px 60px;
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 1000;
-      background: rgba(242, 243, 243, 0.7);
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      background: rgba(242, 243, 243, 0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     }
@@ -98,7 +101,6 @@
       gap: 20px;
     }
 
-    /* Cart Icon Styles */
     .cart-icon-btn {
       background: none;
       border: none;
@@ -155,7 +157,6 @@
       display: none;
     }
 
-    /* Sliding Cart Window Drawer */
     .cart-drawer {
       position: fixed;
       top: 0;
@@ -277,7 +278,6 @@
       pointer-events: auto;
     }
 
-    /* Product card color label styling */
     .product-color-label {
       font-size: 13px;
       font-weight: 600;
@@ -290,15 +290,17 @@
       color: #2e9fb4;
     }
 
-    /* Hero & Sections */
+    /* HERO FIX: হেডার ফিক্সড করার কারণে উপরে margin-top এবং scroll-margin-top দিয়ে জায়গা ঠিক করা হয়েছে */
     .hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
-      padding: 100px 60px;
+      padding: 60px 60px 100px;
       align-items: center;
-      min-height: 100vh;
-      margin-top: -75px;
+      min-height: calc(100vh - 85px);
+      margin-top: 85px;
+      /* হেডারের সমান স্পেস দেওয়া হয়েছে */
+      scroll-margin-top: 100px;
     }
 
     .hero h1 {
@@ -334,8 +336,11 @@
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
     }
 
+    /* SECTION FIX: লিঙ্ক ক্লিক করলে যেন হেডারের নিচে লেখা ঢেকে না যায় */
     .section {
       padding: 100px 60px;
+      scroll-margin-top: 100px;
+      /* স্ক্রোল মার্জিন যোগ করা হয়েছে */
     }
 
     .section-title {
@@ -517,7 +522,7 @@
       transform: translateY(0);
     }
 
-    /* TABLET */
+    /* TABLET RESPONSIVE FIX */
     @media (max-width: 1000px) {
       header {
         padding: 18px 30px;
@@ -527,7 +532,8 @@
         grid-template-columns: 1fr;
         text-align: center;
         gap: 40px;
-        padding: 120px 30px 60px;
+        padding: 40px 30px 60px;
+        margin-top: 80px;
       }
 
       .hero p {
@@ -556,7 +562,7 @@
       }
     }
 
-    /* MOBILE */
+    /* MOBILE RESPONSIVE FIX */
     @media (max-width: 768px) {
       .logo img {
         width: 175px;
@@ -608,8 +614,9 @@
       }
 
       .hero {
-        padding: 120px 20px 50px;
+        padding: 40px 20px 50px;
         min-height: auto;
+        margin-top: 75px;
       }
 
       .hero h1 {
@@ -669,7 +676,6 @@
       }
     }
 
-    /* SMALL MOBILE */
     @media (max-width: 480px) {
       .hero h1 {
         font-size: 34px;
@@ -792,10 +798,8 @@
   </footer>
 
   <script>
-    // Load existing cart from LocalStorage
     let cart = JSON.parse(localStorage.getItem('threadlab_cart')) || [];
 
-    // Each product now simply contains its assigned color name
     const products = [
       { id: 'boraldo-tee-m1', name: 'Boraldo Tee Model-1 (Bloody Freedom)', price: 299, image: 't-shirt design1.jpg', link: '1.html', color: 'Black' },
       { id: 'boraldo-tee-m2', name: 'Boraldo Tee Model-2 (Abstract Freedom)', price: 300, image: 't-shirt design2.jpg', link: '2.html', color: 'Black' },
@@ -840,7 +844,6 @@
       revealElements();
     }
 
-    // Add product to cart logic including its specific color name
     function addToCart(index) {
       const selectedProduct = products[index];
 
@@ -860,12 +863,9 @@
       openCartDrawer();
     }
 
-    // Update Cart Window Interface & Live Count
     function updateCartUI() {
-      // Counter update
       document.getElementById('cart-count').innerText = cart.length;
 
-      // Container Update
       const container = document.getElementById('cart-items-container');
       container.innerHTML = '';
 
@@ -895,14 +895,12 @@
       document.getElementById('cart-total-price').innerText = `$${totalPrice}`;
     }
 
-    // Remove item from cart window
     function removeFromCart(index) {
       cart.splice(index, 1);
       localStorage.setItem('threadlab_cart', JSON.stringify(cart));
       updateCartUI();
     }
 
-    // Drawer State Handling
     const cartBtn = document.getElementById('cart-btn');
     const closeCart = document.getElementById('close-cart');
     const cartDrawer = document.getElementById('cart-drawer');
@@ -924,7 +922,6 @@
     closeCart.addEventListener('click', closeCartDrawer);
     cartOverlay.addEventListener('click', closeCartDrawer);
 
-    // Elements reveal animation trigger
     function revealElements() {
       const reveals = document.querySelectorAll('.reveal');
       reveals.forEach((element) => {
@@ -938,7 +935,6 @@
       });
     }
 
-    // Mobile Navbar Toggles
     const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
     const navItems = document.querySelectorAll('.nav-item');
@@ -969,7 +965,6 @@
 
     window.addEventListener('scroll', revealElements);
 
-    // Initial Render
     renderProducts();
     updateCartUI();
     revealElements();
