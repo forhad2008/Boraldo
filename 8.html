@@ -78,7 +78,6 @@
             width: 100%;
         }
 
-        /* Menu Toggle Button Style */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -99,7 +98,6 @@
             transition: 0.3s;
         }
 
-        /* Animate burger into an 'X' when active */
         .menu-toggle.active span:nth-child(1) {
             transform: translateY(9px) rotate(45deg);
         }
@@ -130,7 +128,6 @@
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
 
-        /* Cart Link in Header */
         .cart-link {
             display: flex;
             align-items: center;
@@ -193,6 +190,10 @@
         .thumbnail:hover {
             transform: scale(1.05);
             border-color: black;
+        }
+
+        .thumbnail.active {
+            border: 3px solid black;
         }
 
         .product-info {
@@ -290,8 +291,9 @@
             border-color: #36aac7;
         }
 
-        .black {
-            background: black;
+        /* Renamed color theme wrapper to match Espresso Brown context */
+        .espresso-brown {
+            background: #383127;
         }
 
         .actions {
@@ -308,31 +310,6 @@
         .wishlist-btn:hover {
             background: black;
             color: white;
-        }
-
-        .features {
-            margin-top: 50px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            width: 100%;
-        }
-
-        .feature-box {
-            background: white;
-            padding: 30px;
-            border-radius: 24px;
-            text-align: center;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
-        }
-
-        .feature-box h1 {
-            font-size: 40px;
-        }
-
-        .feature-box h3 {
-            margin-top: 15px;
-            margin-bottom: 10px;
         }
 
         footer {
@@ -361,7 +338,6 @@
             transform: translateY(-10px);
         }
 
-        /* Modal Overlay - স্ক্রিনের ঠিক মাঝখানে রাখার জন্য অ্যাডজাস্টমেন্ট */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -373,13 +349,10 @@
             z-index: 1000;
             display: none;
             justify-content: center;
-            /* হরাইজন্টাল সেন্টার */
             align-items: center;
-            /* ভার্টিক্যাল সেন্টার */
             padding: 20px;
         }
 
-        /* Modal Content - স্ক্রলযোগ্য এবং রেসপন্সিভ সাইজ */
         .modal-content {
             background: white;
             padding: 40px;
@@ -387,9 +360,7 @@
             width: 100%;
             max-width: 500px;
             max-height: 85vh;
-            /* স্ক্রিনের উচ্চতা অনুযায়ী সর্বোচ্চ ৮৫% জায়গা নেবে */
             overflow-y: auto;
-            /* কন্টেন্ট বেশি হলে মডালের ভেতরেই উপর-নিচ স্ক্রল হবে */
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             position: relative;
         }
@@ -451,16 +422,11 @@
             font-size: 14px;
         }
 
-        /* Responsive Breakpoints compiled */
         @media(max-width: 1000px) {
             .product-section {
                 grid-template-columns: 1fr;
                 gap: 30px;
                 padding: 40px 30px;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
             }
         }
 
@@ -541,7 +507,6 @@
                 text-align: center;
             }
 
-            /* মোবাইলে উইন্ডোটি পুরোপুরি সেন্টারে এবং স্ক্রলযোগ্য রাখার স্পেশাল রুলস */
             .modal-overlay {
                 padding: 15px;
             }
@@ -550,7 +515,6 @@
                 padding: 30px 20px 25px 20px;
                 border-radius: 24px;
                 max-height: 85vh;
-                /* ছোট বা বড় যেকোনো ফোনেই স্ক্রিনের ভেতরে থাকবে */
             }
 
             .close-modal {
@@ -563,12 +527,7 @@
             scroll-behavior: smooth;
         }
 
-        .thumbnail.active {
-            border: 3px solid black;
-        }
-
         .main-image,
-        .feature-box,
         .product-info,
         .btn,
         .size-btn,
@@ -604,21 +563,20 @@
 
     <section class="product-section">
         <div class="gallery">
-            <img id="mainImage" src="t-shirt design1.jpg" class="main-image">
+            <img id="mainImage" src="t-shirt design8.jpg" class="main-image">
             <div class="thumbnail-container">
-                            <img src="t-shirt design1.jpg" class="thumbnail active" onclick="changeImage(this)">
-
-                <img src="1.png" class="thumbnail active" onclick="changeImage(this)">
-                <img src="1.1.png" class="thumbnail" onclick="changeImage(this)">
+                <img src="t-shirt design8.jpg" class="thumbnail active" onclick="changeImage(this)">
+                <img src="8.png" class="thumbnail" onclick="changeImage(this)">
+                <img src="8.1.png" class="thumbnail" onclick="changeImage(this)">
             </div>
         </div>
 
         <div class="product-info">
             <div class="badge">Premium Collection</div>
-            <h1 id="prodTitle">Boraldo Tee Model-1(Bloody Freedom)</h1>
-            <div class="price" id="prodPrice">$299</div>
+            <h1 id="prodTitle">Boraldo Tee Model-8 (Universal Art)</h1>
+            <div class="price" id="prodPrice">$400</div>
             <p class="description">
-                Crafted from premium heavyweight cotton with a luxury design symbol of Bloody Freedom.
+                Crafted from premium heavyweight cotton with a luxury design symbol of Universal truth.
                 Designed for modern streetwear lovers who want minimalist fashion,
                 comfort, and bold aesthetics in one premium piece.
             </p>
@@ -634,7 +592,7 @@
             <div class="colors">
                 <h3>Available Colors</h3>
                 <div class="color-options">
-                    <div class="color black active" data-color="Black"></div>
+                    <div class="color espresso-brown active" data-color="Espresso Brown"></div>
                 </div>
             </div>
 
@@ -654,8 +612,7 @@
                 <button id="clearCartBtn" class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
             </div>
 
-            <div class="cart-item-list" id="cartItemList">
-            </div>
+            <div class="cart-item-list" id="cartItemList"></div>
 
             <div style="margin-bottom: 20px; font-weight: bold; font-size: 18px;">
                 Total: <span id="cartTotalPrice">$0.00</span>
@@ -677,13 +634,16 @@
 
     <div id="toast"></div>
 
+    <footer>
+        <p>&copy; 2026 ThreadLab. All rights reserved.</p>
+    </footer>
+
     <script>
-        // App State Storage Variables
+        // Set the default initial selected color state variable to Espresso Brown
         let selectedSize = "L";
-        let selectedColor = "Black";
+        let selectedColor = "Espresso Brown";
         let cart = JSON.parse(localStorage.getItem('threadlab_cart')) || [];
 
-        // Mobile Menu Functions
         function toggleMenu() {
             const nav = document.getElementById('navMenu');
             const toggleBtn = document.querySelector('.menu-toggle');
@@ -698,11 +658,9 @@
             toggleBtn.classList.remove('active');
         }
 
-        // Dynamic State Initializers
         document.addEventListener("DOMContentLoaded", () => {
             updateCartUI();
 
-            // Set up configurations for variants
             document.querySelectorAll('.size-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
@@ -715,7 +673,7 @@
                 clr.addEventListener('click', () => {
                     document.querySelectorAll('.color').forEach(c => c.classList.remove('active'));
                     clr.classList.add('active');
-                    selectedColor = clr.getAttribute('data-color') || "Black";
+                    selectedColor = clr.getAttribute('data-color') || "Espresso Brown";
                 });
             });
         });
@@ -726,7 +684,6 @@
             element.classList.add('active');
         }
 
-        // Live Cart State Modifications
         function addToCart() {
             const product = {
                 id: "boraldo-tee-m1",
@@ -783,7 +740,6 @@
             updateCartUI();
         }
 
-        // Clear Entire Cart Feature
         function clearCart() {
             if (cart.length === 0) return;
 
@@ -795,18 +751,16 @@
             }
         }
 
-        // Modal Controls
         function openCartModal() {
             document.getElementById('cartModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // মডাল ওপেন থাকলে পেছনের পেজ স্ক্রল হওয়া বন্ধ থাকবে
+            document.body.style.overflow = 'hidden';
         }
 
         function closeCartModal() {
             document.getElementById('cartModal').style.display = 'none';
-            document.body.style.overflow = 'auto';   // মডাল বন্ধ হলে মেইন পেজ আবার স্ক্রল করা যাবে
+            document.body.style.overflow = 'auto';
         }
 
-        // Processing simulated client validation pipelines
         function processPayment(event) {
             event.preventDefault();
             if (cart.length === 0) {
@@ -826,7 +780,6 @@
             }, 1500);
         }
 
-        // Toast Messages Elements
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.innerHTML = message;

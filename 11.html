@@ -290,9 +290,11 @@
             border-color: #36aac7;
         }
 
-        .black {
-            background: black;
+
+        .white {
+            background: #e9e7e7;
         }
+
 
         .actions {
             display: flex;
@@ -598,27 +600,27 @@
             <a href="#" class="cart-link" onclick="openCartModal(); closeMenu();">Cart <span class="cart-count"
                     id="cartCountHeader">0</span></a>
         </nav>
-
+        
         <a href="page1.html#shop" class="btn">Back To Store</a>
-    </header>
+        </header>
 
     <section class="product-section">
         <div class="gallery">
-            <img id="mainImage" src="t-shirt design1.jpg" class="main-image">
+            <img id="mainImage" src="t-shirt design11.jpg" class="main-image">
             <div class="thumbnail-container">
-                            <img src="t-shirt design1.jpg" class="thumbnail active" onclick="changeImage(this)">
+                <img src="t-shirt design11.jpg" class="thumbnail active" onclick="changeImage(this)">
 
-                <img src="1.png" class="thumbnail active" onclick="changeImage(this)">
-                <img src="1.1.png" class="thumbnail" onclick="changeImage(this)">
+                <img src="11.png" class="thumbnail active" onclick="changeImage(this)">
+                <img src="11.1.png" class="thumbnail" onclick="changeImage(this)">
             </div>
         </div>
 
         <div class="product-info">
             <div class="badge">Premium Collection</div>
-            <h1 id="prodTitle">Boraldo Tee Model-1(Bloody Freedom)</h1>
-            <div class="price" id="prodPrice">$299</div>
+            <h1 id="prodTitle">Boraldo Tee Model-11 (The Busy Men)</h1>
+            <div class="price" id="prodPrice">$279</div>
             <p class="description">
-                Crafted from premium heavyweight cotton with a luxury design symbol of Bloody Freedom.
+                Crafted from premium heavyweight cotton with a Modern design symbol of The Busy Man.
                 Designed for modern streetwear lovers who want minimalist fashion,
                 comfort, and bold aesthetics in one premium piece.
             </p>
@@ -634,7 +636,7 @@
             <div class="colors">
                 <h3>Available Colors</h3>
                 <div class="color-options">
-                    <div class="color black active" data-color="Black"></div>
+                    <div class="color white active" data-color="White"></div>
                 </div>
             </div>
 
@@ -644,6 +646,7 @@
             </div>
         </div>
     </section>
+
 
     <div class="modal-overlay" id="cartModal">
         <div class="modal-content">
@@ -675,13 +678,14 @@
         </div>
     </div>
 
+
     <div id="toast"></div>
 
     <script>
         // App State Storage Variables
-        let selectedSize = "L";
-        let selectedColor = "Black";
-        let cart = JSON.parse(localStorage.getItem('threadlab_cart')) || [];
+            let selectedSize = "L";
+            let selectedColor = "white";
+            let cart = JSON.parse(localStorage.getItem('threadlab_cart')) || [];
 
         // Mobile Menu Functions
         function toggleMenu() {

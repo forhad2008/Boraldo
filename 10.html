@@ -290,8 +290,8 @@
             border-color: #36aac7;
         }
 
-        .black {
-            background: black;
+        .dark-brown {
+            background: #3d2314;
         }
 
         .actions {
@@ -361,7 +361,7 @@
             transform: translateY(-10px);
         }
 
-        /* Modal Overlay - স্ক্রিনের ঠিক মাঝখানে রাখার জন্য অ্যাডজাস্টমেন্ট */
+        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -373,13 +373,11 @@
             z-index: 1000;
             display: none;
             justify-content: center;
-            /* হরাইজন্টাল সেন্টার */
             align-items: center;
-            /* ভার্টিক্যাল সেন্টার */
             padding: 20px;
         }
 
-        /* Modal Content - স্ক্রলযোগ্য এবং রেসপন্সিভ সাইজ */
+        /* Modal Content */
         .modal-content {
             background: white;
             padding: 40px;
@@ -387,9 +385,7 @@
             width: 100%;
             max-width: 500px;
             max-height: 85vh;
-            /* স্ক্রিনের উচ্চতা অনুযায়ী সর্বোচ্চ ৮৫% জায়গা নেবে */
             overflow-y: auto;
-            /* কন্টেন্ট বেশি হলে মডালের ভেতরেই উপর-নিচ স্ক্রল হবে */
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             position: relative;
         }
@@ -541,7 +537,6 @@
                 text-align: center;
             }
 
-            /* মোবাইলে উইন্ডোটি পুরোপুরি সেন্টারে এবং স্ক্রলযোগ্য রাখার স্পেশাল রুলস */
             .modal-overlay {
                 padding: 15px;
             }
@@ -550,7 +545,6 @@
                 padding: 30px 20px 25px 20px;
                 border-radius: 24px;
                 max-height: 85vh;
-                /* ছোট বা বড় যেকোনো ফোনেই স্ক্রিনের ভেতরে থাকবে */
             }
 
             .close-modal {
@@ -604,21 +598,20 @@
 
     <section class="product-section">
         <div class="gallery">
-            <img id="mainImage" src="t-shirt design1.jpg" class="main-image">
+            <img id="mainImage" src="t-shirt design10.jpg" class="main-image">
             <div class="thumbnail-container">
-                            <img src="t-shirt design1.jpg" class="thumbnail active" onclick="changeImage(this)">
-
-                <img src="1.png" class="thumbnail active" onclick="changeImage(this)">
-                <img src="1.1.png" class="thumbnail" onclick="changeImage(this)">
+                <img src="t-shirt design10.jpg" class="thumbnail active" onclick="changeImage(this)">
+                <img src="10.png" class="thumbnail active" onclick="changeImage(this)">
+                <img src="10.1.png" class="thumbnail" onclick="changeImage(this)">
             </div>
         </div>
 
         <div class="product-info">
             <div class="badge">Premium Collection</div>
-            <h1 id="prodTitle">Boraldo Tee Model-1(Bloody Freedom)</h1>
-            <div class="price" id="prodPrice">$299</div>
+            <h1 id="prodTitle">Boraldo Tee Model-10 (Classic car)</h1>
+            <div class="price" id="prodPrice">$311</div>
             <p class="description">
-                Crafted from premium heavyweight cotton with a luxury design symbol of Bloody Freedom.
+                Crafted from premium heavyweight cotton with a classic design symbol of Classic car.
                 Designed for modern streetwear lovers who want minimalist fashion,
                 comfort, and bold aesthetics in one premium piece.
             </p>
@@ -634,7 +627,7 @@
             <div class="colors">
                 <h3>Available Colors</h3>
                 <div class="color-options">
-                    <div class="color black active" data-color="Black"></div>
+                    <div class="color dark-brown active" data-color="Dark Brown"></div>
                 </div>
             </div>
 
@@ -644,6 +637,7 @@
             </div>
         </div>
     </section>
+
 
     <div class="modal-overlay" id="cartModal">
         <div class="modal-content">
@@ -675,12 +669,13 @@
         </div>
     </div>
 
+
     <div id="toast"></div>
 
     <script>
         // App State Storage Variables
         let selectedSize = "L";
-        let selectedColor = "Black";
+        let selectedColor = "Dark Brown";
         let cart = JSON.parse(localStorage.getItem('threadlab_cart')) || [];
 
         // Mobile Menu Functions
@@ -715,7 +710,7 @@
                 clr.addEventListener('click', () => {
                     document.querySelectorAll('.color').forEach(c => c.classList.remove('active'));
                     clr.classList.add('active');
-                    selectedColor = clr.getAttribute('data-color') || "Black";
+                    selectedColor = clr.getAttribute('data-color') || "Dark Brown";
                 });
             });
         });
@@ -798,12 +793,12 @@
         // Modal Controls
         function openCartModal() {
             document.getElementById('cartModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // মডাল ওপেন থাকলে পেছনের পেজ স্ক্রল হওয়া বন্ধ থাকবে
+            document.body.style.overflow = 'hidden';
         }
 
         function closeCartModal() {
             document.getElementById('cartModal').style.display = 'none';
-            document.body.style.overflow = 'auto';   // মডাল বন্ধ হলে মেইন পেজ আবার স্ক্রল করা যাবে
+            document.body.style.overflow = 'auto';
         }
 
         // Processing simulated client validation pipelines
