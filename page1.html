@@ -23,7 +23,6 @@
     body {
       width: 100%;
       overflow-x: hidden;
-      /* Prevents any accidental left-to-right swiping globally */
     }
 
     body {
@@ -31,9 +30,9 @@
       color: #111;
     }
 
-    body.menu-open {
+    body.menu-open,
+    body.cart-open {
       overflow: hidden;
-      /* Stops vertical scrolling while menu overlay is active */
     }
 
     button,
@@ -93,6 +92,40 @@
       width: 100%;
     }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Cart Icon Styles */
+    .cart-icon-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: #d10f0f;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      width: 20px;
+      height: 20px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .btn {
       background: black;
       color: white;
@@ -122,6 +155,142 @@
       display: none;
     }
 
+    /* Sliding Cart Window Drawer */
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 420px;
+      max-width: 100%;
+      height: 100vh;
+      background: white;
+      z-index: 2500;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-drawer.active {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      padding: 24px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-cart {
+      font-size: 28px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cart-items-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      border-bottom: 1px solid #f5f5f5;
+      padding-bottom: 15px;
+    }
+
+    .cart-item img {
+      width: 75px;
+      height: 75px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid #eee;
+    }
+
+    .cart-item-details {
+      flex: 1;
+    }
+
+    .cart-item-details h4 {
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    .cart-item-details p {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 3px;
+    }
+
+    .cart-item-details strong {
+      font-size: 14px;
+      color: #d10f0f;
+    }
+
+    .remove-item-btn {
+      background: none;
+      border: none;
+      color: #ff3333;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .cart-footer {
+      padding: 24px;
+      border-top: 1px solid #eee;
+      background: #fafafa;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 2400;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s;
+    }
+
+    .cart-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Product card color label styling */
+    .product-color-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .product-color-label span {
+      font-weight: 400;
+      color: #2e9fb4;
+    }
+
+    /* Hero & Sections */
     .hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -198,10 +367,11 @@
     }
 
     .product-price {
-  color: #d10f0f; /* This matches your teal hover color */
-  font-size: 20px;
-  font-weight: 700;
-}
+      color: #d10f0f;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
     .card {
       background: white;
       border-radius: 28px;
@@ -226,6 +396,7 @@
       border-radius: 30px;
       font-size: 12px;
       font-weight: 600;
+      z-index: 10;
     }
 
     .card img {
@@ -242,17 +413,18 @@
       display: flex;
       justify-content: space-between;
       gap: 15px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .card-top h3 {
       font-size: 20px;
     }
 
-    .card-content p {
+    .card-content .prod-desc {
       color: #666;
-      line-height: 1.7;
-      margin-bottom: 20px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      font-size: 14px;
     }
 
     .card-buttons {
@@ -384,7 +556,7 @@
       }
     }
 
-    /* MOBILE PREVENTING OVERLAY INTERACTION COMPLETELY */
+    /* MOBILE */
     @media (max-width: 768px) {
       .logo img {
         width: 175px;
@@ -415,8 +587,6 @@
         padding: 100px 30px;
         gap: 28px;
         box-shadow: -10px 0 30px rgba(0, 0, 0, 0.08);
-
-        /* Completely hides menu track window from layout to prevent horizontal scroll bugs */
         visibility: hidden;
         pointer-events: none;
         transform: translateX(100%);
@@ -538,13 +708,34 @@
       <a href="about.html" class="nav-item">About us</a>
       <a href="#collection" class="nav-item">Collection</a>
       <a href="#shop" class="nav-item">Shop</a>
-      <a href="plain.html" class="nav-item">Logo t-shirts</a>
 
       <a href="#shop" class="mobile-btn nav-item">Shop Now</a>
     </div>
 
-    <a href="#shop" class="btn desktop-btn">Shop Now</a>
+    <div class="header-actions">
+      <button class="cart-icon-btn" id="cart-btn">
+        🛒 <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <a href="#shop" class="btn desktop-btn">Shop Now</a>
+    </div>
   </header>
+
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button class="close-cart" id="close-cart">✕</button>
+    </div>
+    <div class="cart-items-container" id="cart-items-container">
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cart-total-price">$0</span>
+      </div>
+      <button class="btn" style="width: 100%;">Proceed to Checkout</button>
+    </div>
+  </div>
 
   <section class="hero reveal" id="home">
     <div>
@@ -601,37 +792,45 @@
   </footer>
 
   <script>
+    // Load existing cart from LocalStorage
+    let cart = JSON.parse(localStorage.getItem('threadlab_cart')) || [];
+
+    // Each product now simply contains its assigned color name
     const products = [
-      { name: 'Boraldo Tee Model-1 (Bloody Freedom)', price: '$299', image: 't-shirt design1.jpg', link: '1.html' },
-      { name: 'Boraldo Tee Model-2 (Abstract Freedom)', price: '$300', image: 't-shirt design2.jpg', link: '2.html' },
-      { name: 'Boraldo Tee Model-3 (Abstract street)', price: '$304', image: 't-shirt design3.jpg', link: '3.html' },
-      { name: 'Boraldo Tee Model-4 (Abstract street-2)', price: '$309', image: 't-shirt design4.jpg', link: '4.html' },
-      { name: 'Boraldo Tee Model-5 (The Shadow)', price: '$300', image: 't-shirt design5.jpg', link: '5.html' },
-      { name: 'Boraldo Tee Model-6 (The Astronaut)', price: '$299', image: 't-shirt design6.jpg', link: '6.html' },
-      { name: 'Boraldo Tee Model-7 (Sigma Art)', price: '$300', image: 't-shirt design7.jpg', link: '7.html' },
-      { name: 'Boraldo Tee Model-8 (Universal Art)', price: '$400', image: 't-shirt design8.jpg', link: '8.html' },
-      { name: 'Boraldo Tee Model-9 (Classic Art V-1)', price: '$300', image: 't-shirt design9.jpg', link: '9.html' },
-      { name: 'Boraldo Tee Model-10 (Classic car)', price: '$311', image: 't-shirt design10.jpg', link: '10.html' },
-      { name: 'Boraldo Tee Model-11 (The Busy Men)', price: '$279', image: 't-shirt design11.jpg', link: '11.html' },
-      { name: 'Boraldo Tee Model-12 (Money Art V-1)', price: '$279', image: 't-shirt design12.jpg', link: '12.html' },
+      { id: 'boraldo-tee-m1', name: 'Boraldo Tee Model-1 (Bloody Freedom)', price: 299, image: 't-shirt design1.jpg', link: '1.html', color: 'Black' },
+      { id: 'boraldo-tee-m2', name: 'Boraldo Tee Model-2 (Abstract Freedom)', price: 300, image: 't-shirt design2.jpg', link: '2.html', color: 'Black' },
+      { id: 'boraldo-tee-m3', name: 'Boraldo Tee Model-3 (Abstract street)', price: 304, image: 't-shirt design3.jpg', link: '3.html', color: 'Black' },
+      { id: 'boraldo-tee-m4', name: 'Boraldo Tee Model-4 (Abstract street-2)', price: 309, image: 't-shirt design4.jpg', link: '4.html', color: 'Black' },
+      { id: 'boraldo-tee-m5', name: 'Boraldo Tee Model-5 (The Shadow)', price: 300, image: 't-shirt design5.jpg', link: '5.html', color: 'Black' },
+      { id: 'boraldo-tee-m6', name: 'Boraldo Tee Model-6 (The Astronaut)', price: 299, image: 't-shirt design6.jpg', link: '6.html', color: 'Black' },
+      { id: 'boraldo-tee-m7', name: 'Boraldo Tee Model-7 (Sigma Art)', price: 300, image: 't-shirt design7.jpg', link: '7.html', color: 'Black' },
+      { id: 'boraldo-tee-m8', name: 'Boraldo Tee Model-8 (Universal Art)', price: 400, image: 't-shirt design8.jpg', link: '8.html', color: 'Espresso Brown' },
+      { id: 'boraldo-tee-m9', name: 'Boraldo Tee Model-9 (Classic Art V-1)', price: 300, image: 't-shirt design9.jpg', link: '9.html', color: 'Black' },
+      { id: 'boraldo-tee-m10', name: 'Boraldo Tee Model-10 (Classic car)', price: 311, image: 't-shirt design10.jpg', link: '10.html', color: 'Black' },
+      { id: 'boraldo-tee-m11', name: 'Boraldo Tee Model-11 (The Busy Men)', price: 279, image: 't-shirt design11.jpg', link: '11.html', color: 'white' },
+      { id: 'boraldo-tee-m12', name: 'Boraldo Tee Model-12 (Money Art V-1)', price: 279, image: 't-shirt design12.jpg', link: '12.html', color: 'white' },
     ];
 
     function renderProducts() {
       const productList = document.getElementById('product-list');
       productList.innerHTML = '';
 
-      products.forEach((product) => {
+      products.forEach((product, index) => {
         productList.innerHTML += `
           <div class="card reveal">
             <div class="badge">Premium</div>
             <img src="${product.image}" alt="${product.name}" loading="lazy">
             <div class="card-content">
               <div class="card-top">
-  <h3>${product.name}</h3>
-  <strong class="product-price">${product.price}</strong> </div>
-              <p>Premium oversized t-shirt designed for minimalist streetwear fashion.</p>
+                <h3>${product.name}</h3>
+                <strong class="product-price">$${product.price}</strong> 
+              </div>
+              <p class="prod-desc">Premium oversized t-shirt designed for minimalist streetwear fashion.</p>
+              
+              <div class="product-color-label">Color: <span>${product.color}</span></div>
+
               <div class="card-buttons">
-                <button class="btn" style="flex:1;">Add To Cart</button>
+                <button class="btn" style="flex:1;" onclick="addToCart(${index})">Add To Cart</button>
                 <a href="${product.link}" class="btn details-btn">Details</a>
               </div>
             </div>
@@ -641,6 +840,91 @@
       revealElements();
     }
 
+    // Add product to cart logic including its specific color name
+    function addToCart(index) {
+      const selectedProduct = products[index];
+
+      const productToCart = {
+        id: selectedProduct.id,
+        name: selectedProduct.name,
+        price: selectedProduct.price,
+        size: "L",
+        color: selectedProduct.color,
+        img: selectedProduct.image
+      };
+
+      cart.push(productToCart);
+      localStorage.setItem('threadlab_cart', JSON.stringify(cart));
+
+      updateCartUI();
+      openCartDrawer();
+    }
+
+    // Update Cart Window Interface & Live Count
+    function updateCartUI() {
+      // Counter update
+      document.getElementById('cart-count').innerText = cart.length;
+
+      // Container Update
+      const container = document.getElementById('cart-items-container');
+      container.innerHTML = '';
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">Your cart is empty.</p>';
+        document.getElementById('cart-total-price').innerText = '$0';
+        return;
+      }
+
+      let totalPrice = 0;
+
+      cart.forEach((item, index) => {
+        totalPrice += item.price;
+        container.innerHTML += `
+          <div class="cart-item">
+            <img src="${item.img}" alt="${item.name}">
+            <div class="cart-item-details">
+              <h4>${item.name}</h4>
+              <p>Color: <strong>${item.color}</strong> | Size: ${item.size}</p>
+              <strong>$${item.price}</strong>
+            </div>
+            <button class="remove-item-btn" onclick="removeFromCart(${index})">Remove</button>
+          </div>
+        `;
+      });
+
+      document.getElementById('cart-total-price').innerText = `$${totalPrice}`;
+    }
+
+    // Remove item from cart window
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('threadlab_cart', JSON.stringify(cart));
+      updateCartUI();
+    }
+
+    // Drawer State Handling
+    const cartBtn = document.getElementById('cart-btn');
+    const closeCart = document.getElementById('close-cart');
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartOverlay = document.getElementById('cart-overlay');
+
+    function openCartDrawer() {
+      cartDrawer.classList.add('active');
+      cartOverlay.classList.add('active');
+      document.body.classList.add('cart-open');
+    }
+
+    function closeCartDrawer() {
+      cartDrawer.classList.remove('active');
+      cartOverlay.classList.remove('active');
+      document.body.classList.remove('cart-open');
+    }
+
+    cartBtn.addEventListener('click', openCartDrawer);
+    closeCart.addEventListener('click', closeCartDrawer);
+    cartOverlay.addEventListener('click', closeCartDrawer);
+
+    // Elements reveal animation trigger
     function revealElements() {
       const reveals = document.querySelectorAll('.reveal');
       reveals.forEach((element) => {
@@ -654,11 +938,11 @@
       });
     }
 
+    // Mobile Navbar Toggles
     const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
     const navItems = document.querySelectorAll('.nav-item');
 
-    // Toggle menu state and manage scroll blocks
     menuToggle.addEventListener('click', (e) => {
       e.stopPropagation();
       const isOpen = navLinks.classList.toggle('active');
@@ -669,7 +953,6 @@
       }
     });
 
-    // Close the menu automatically when a navigation item is tapped
     navItems.forEach(item => {
       item.addEventListener('click', () => {
         navLinks.classList.remove('active');
@@ -677,7 +960,6 @@
       });
     });
 
-    // Close the drawer if the viewport scales past mobile parameters 
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768) {
         navLinks.classList.remove('active');
@@ -686,7 +968,10 @@
     });
 
     window.addEventListener('scroll', revealElements);
+
+    // Initial Render
     renderProducts();
+    updateCartUI();
     revealElements();
   </script>
 </body>
