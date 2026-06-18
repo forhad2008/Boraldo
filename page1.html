@@ -40,7 +40,6 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* HEADER FIX: এখানে position fixed করা হয়েছে এবং z-index বাড়ানো হয়েছে */
     header {
       display: flex;
       justify-content: space-between;
@@ -51,6 +50,7 @@
       left: 0;
       width: 100%;
       z-index: 9999;
+      /* Main header layer */
       background: rgba(242, 243, 243, 0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -157,6 +157,7 @@
       display: none;
     }
 
+    /* FIX: Increased z-index to 10005 so it sits on top of the main navigation header */
     .cart-drawer {
       position: fixed;
       top: 0;
@@ -165,7 +166,7 @@
       max-width: 100%;
       height: 100vh;
       background: white;
-      z-index: 2500;
+      z-index: 10005;
       box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
       transform: translateX(100%);
       transition: transform 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
@@ -183,13 +184,33 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: #ffffff;
     }
 
+    .cart-header h3 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    /* CLEARLY VISIBLE CLOSE BUTTON STYLING */
     .close-cart {
-      font-size: 28px;
-      background: none;
+      font-size: 20px;
+      background: #f5f5f5;
+      color: #111;
       border: none;
       cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .close-cart:hover {
+      background: #e0e0e0;
+      transform: scale(1.05);
     }
 
     .cart-items-container {
@@ -260,6 +281,7 @@
       margin-bottom: 20px;
     }
 
+    /* FIX: Dark background overlay layer behind the drawer but over the main page content */
     .cart-overlay {
       position: fixed;
       top: 0;
@@ -267,7 +289,7 @@
       width: 100vw;
       height: 100vh;
       background: rgba(0, 0, 0, 0.4);
-      z-index: 2400;
+      z-index: 10000;
       opacity: 0;
       pointer-events: none;
       transition: 0.3s;
@@ -290,7 +312,6 @@
       color: #2e9fb4;
     }
 
-    /* HERO FIX: হেডার ফিক্সড করার কারণে উপরে margin-top এবং scroll-margin-top দিয়ে জায়গা ঠিক করা হয়েছে */
     .hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -299,7 +320,6 @@
       align-items: center;
       min-height: calc(100vh - 85px);
       margin-top: 85px;
-      /* হেডারের সমান স্পেস দেওয়া হয়েছে */
       scroll-margin-top: 100px;
     }
 
@@ -336,11 +356,9 @@
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
     }
 
-    /* SECTION FIX: লিঙ্ক ক্লিক করলে যেন হেডারের নিচে লেখা ঢেকে না যায় */
     .section {
       padding: 100px 60px;
       scroll-margin-top: 100px;
-      /* স্ক্রোল মার্জিন যোগ করা হয়েছে */
     }
 
     .section-title {
@@ -522,7 +540,6 @@
       transform: translateY(0);
     }
 
-    /* TABLET RESPONSIVE FIX */
     @media (max-width: 1000px) {
       header {
         padding: 18px 30px;
@@ -562,7 +579,6 @@
       }
     }
 
-    /* MOBILE RESPONSIVE FIX */
     @media (max-width: 768px) {
       .logo img {
         width: 175px;
@@ -710,12 +726,11 @@
     <div class="menu-toggle" id="menu-toggle">☰</div>
 
     <div class="nav-links" id="nav-links">
-      <a href="#home" class="nav-item">Home</a>
+      <a href="index.html" class="nav-item">Home</a>
       <a href="about.html" class="nav-item">About us</a>
       <a href="#collection" class="nav-item">Collection</a>
       <a href="#shop" class="nav-item">Shop</a>
-
-      <a href="#shop" class="mobile-btn nav-item">Shop Now</a>
+      <a href="https://api.whatsapp.com/send/?phone=8801342900364&text&type=phone_number&app_absent=0" class="mobile-btn nav-item">Shop Now</a>
     </div>
 
     <div class="header-actions">
@@ -727,13 +742,13 @@
   </header>
 
   <div class="cart-overlay" id="cart-overlay"></div>
+
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-header">
       <h3>Your Cart</h3>
       <button class="close-cart" id="close-cart">✕</button>
     </div>
-    <div class="cart-items-container" id="cart-items-container">
-    </div>
+    <div class="cart-items-container" id="cart-items-container"></div>
     <div class="cart-footer">
       <div class="cart-total">
         <span>Total:</span>
@@ -746,10 +761,8 @@
   <section class="hero reveal" id="home">
     <div>
       <h1>Wear <span>Minimal.</span></h1>
-      <p>
-        Premium oversized t-shirts designed with modern streetwear aesthetics.
-        Discover comfort, luxury cotton, and minimalist fashion.
-      </p>
+      <p>Premium oversized t-shirts designed with modern streetwear aesthetics. Discover comfort, luxury cotton, and
+        minimalist fashion.</p>
       <h2>Always stay forward. Never look back.</h2>
       <a href="#shop" class="btn">Explore Collection</a>
     </div>
@@ -830,9 +843,7 @@
                 <strong class="product-price">$${product.price}</strong> 
               </div>
               <p class="prod-desc">Premium oversized t-shirt designed for minimalist streetwear fashion.</p>
-              
               <div class="product-color-label">Color: <span>${product.color}</span></div>
-
               <div class="card-buttons">
                 <button class="btn" style="flex:1;" onclick="addToCart(${index})">Add To Cart</button>
                 <a href="${product.link}" class="btn details-btn">Details</a>
@@ -846,7 +857,6 @@
 
     function addToCart(index) {
       const selectedProduct = products[index];
-
       const productToCart = {
         id: selectedProduct.id,
         name: selectedProduct.name,
@@ -855,17 +865,14 @@
         color: selectedProduct.color,
         img: selectedProduct.image
       };
-
       cart.push(productToCart);
       localStorage.setItem('threadlab_cart', JSON.stringify(cart));
-
       updateCartUI();
       openCartDrawer();
     }
 
     function updateCartUI() {
       document.getElementById('cart-count').innerText = cart.length;
-
       const container = document.getElementById('cart-items-container');
       container.innerHTML = '';
 
@@ -876,7 +883,6 @@
       }
 
       let totalPrice = 0;
-
       cart.forEach((item, index) => {
         totalPrice += item.price;
         container.innerHTML += `
@@ -891,7 +897,6 @@
           </div>
         `;
       });
-
       document.getElementById('cart-total-price').innerText = `$${totalPrice}`;
     }
 
@@ -928,7 +933,6 @@
         const windowHeight = window.innerHeight;
         const revealTop = element.getBoundingClientRect().top;
         const revealPoint = 75;
-
         if (revealTop < windowHeight - revealPoint) {
           element.classList.add('active');
         }
