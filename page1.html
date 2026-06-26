@@ -829,23 +829,23 @@
 
       products.forEach((product, index) => {
         productList.innerHTML += `
-          <div class="card reveal">
-            <div class="badge">Premium</div>
-            <img src="${product.image}" alt="${product.name}" loading="lazy">
-            <div class="card-content">
-              <div class="card-top">
-                <h3>${product.name}</h3>
-                <strong class="product-price">$${product.price}</strong> 
-              </div>
-              <p class="prod-desc">Premium oversized t-shirt designed for minimalist streetwear fashion.</p>
-              <div class="product-color-label">Color: <span>${product.color}</span></div>
-              <div class="card-buttons">
-                <button class="btn" style="flex:1;" onclick="addToCart(${index})">Add To Cart</button>
-                <a href="${product.link}" class="btn details-btn">Details</a>
+            <div class="card reveal">
+              <div class="badge">Premium</div>
+              <img src="${product.image}" alt="${product.name}" loading="lazy">
+              <div class="card-content">
+                <div class="card-top">
+                  <h3>${product.name}</h3>
+                  <strong class="product-price">$${product.price}</strong> 
+                </div>
+                <p class="prod-desc">Premium oversized t-shirt designed for minimalist streetwear fashion.</p>
+                <div class="product-color-label">Color: <span>${product.color}</span></div>
+                <div class="card-buttons">
+                  <button class="btn" style="flex:1;" onclick="addToCart(${index})">Add To Cart</button>
+                  <a href="${product.link}" class="btn details-btn">Details</a>
+                </div>
               </div>
             </div>
-          </div>
-        `;
+          `;
       });
       revealElements();
     }
@@ -881,16 +881,16 @@
       cart.forEach((item, index) => {
         totalPrice += item.price;
         container.innerHTML += `
-          <div class="cart-item">
-            <img src="${item.img}" alt="${item.name}">
-            <div class="cart-item-details">
-              <h4>${item.name}</h4>
-              <p>Color: <strong>${item.color}</strong> | Size: ${item.size}</p>
-              <strong>$${item.price}</strong>
+            <div class="cart-item">
+              <img src="${item.img}" alt="${item.name}">
+              <div class="cart-item-details">
+                <h4>${item.name}</h4>
+                <p>Color: <strong>${item.color}</strong> | Size: ${item.size}</p>
+                <strong>$${item.price}</strong>
+              </div>
+              <button class="remove-item-btn" onclick="removeFromCart(${index})">Remove</button>
             </div>
-            <button class="remove-item-btn" onclick="removeFromCart(${index})">Remove</button>
-          </div>
-        `;
+          `;
       });
       document.getElementById('cart-total-price').innerText = `$${totalPrice}`;
     }
@@ -953,6 +953,14 @@
         navLinks.classList.remove('active');
         document.body.classList.remove('menu-open');
       });
+    });
+
+    // FEATURE: Close mobile menu window if clicking outside of it or the toggle button
+    window.addEventListener('click', (e) => {
+      if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && e.target !== menuToggle) {
+        navLinks.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      }
     });
 
     window.addEventListener('resize', () => {
